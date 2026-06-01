@@ -88,8 +88,7 @@ export default function ThankYou() {
 >
         {/* Star badge */}
         <motion.div {...fadeUp(0.05)}>
-          <div
-<div
+        <div
   style={{
     width: isMobile ? 64 : 80,
     height: isMobile ? 64 : 80,
