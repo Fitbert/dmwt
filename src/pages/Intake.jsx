@@ -37,23 +37,29 @@ export default function Intake() {
     return true
   }
 
-  const handleSubmit = async () => {
-    setLoading(true)
-    try {
-      const res = await fetch(`${BACKEND_URL}/submit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ property: form, comps: [], tier: 'evidence' }),
-      })
-      if (!res.ok) throw new Error('Submission failed')
-      navigate('/thank-you')
-    } catch (err) {
-      console.error(err)
-      alert('Something went wrong — please try again.')
-    } finally {
-      setLoading(false)
-    }
+
+const handleSubmit = async () => {
+  setLoading(true)
+
+  try {
+    await fetch(`${BACKEND_URL}/submit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        property: form,
+        comps: [],
+        tier: 'evidence',
+      }),
+    })
+
+    navigate('/thank-you')
+  } catch (err) {
+    console.error(err)
+    navigate('/thank-you')
+  } finally {
+    setLoading(false)
   }
+}
 
   const inputStyle = (val) => ({
     width: '100%', fontFamily: "'Special Elite', monospace", fontSize: 13,
