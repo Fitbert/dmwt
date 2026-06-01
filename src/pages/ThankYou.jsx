@@ -101,8 +101,8 @@ export default function ThankYou() {
     background: 'rgba(201,135,58,0.12)',
     border: '2px solid rgba(201,135,58,0.3)',
   }}
->            style={{ background: 'rgba(201,135,58,0.12)', border: `2px solid rgba(201,135,58,0.3)` }}
-          >
+>   
+       
 <Star size={isMobile ? 28 : 36} fill={gold} style={{ color: gold }} />          </div>
         </motion.div>
 
