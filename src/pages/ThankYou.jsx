@@ -243,7 +243,7 @@ style={{
   borderRadius: 12,
   background: '#fff',
   border: '1px solid #e8e2d9',
-}}    
+}}    >
       <span style={{ fontSize: 18, lineHeight: '24px' }}>⚠️</span>
           <p className="text-sm" style={{ color: '#475569' }}>
             <span className="font-semibold" style={{ color: navy }}>
