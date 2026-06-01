@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Mail, Clock, Star, CheckCircle } from 'lucide-react'
+import { useBreakpoint } from '../hooks/useBreakpoint'
 
 const gold = '#c9873a'
 const navy = '#0f1a2e'
@@ -33,6 +34,10 @@ const steps = [
 ]
 
 export default function ThankYou() {
+  const { isMobile, isTablet } = useBreakpoint()
+
+  const px = isMobile ? '20px' : isTablet ? '32px' : '48px'
+
   return (
     <div
       className="min-h-screen"
@@ -40,7 +45,16 @@ export default function ThankYou() {
     >
       {/* Minimal nav */}
       <header style={{ background: navy, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+<div
+  style={{
+    maxWidth: 1280,
+    margin: '0 auto',
+    padding: `16px ${px}`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  }}
+>
           <Link to="/" className="flex items-center gap-2">
             <span style={{ fontFamily: '"Playfair Display", serif', fontWeight: 900, color: '#fff', fontSize: 18 }}>
               Don't Mess
@@ -60,16 +74,36 @@ export default function ThankYou() {
         </div>
       </header>
 
-      <div className="mx-auto flex min-h-[calc(100vh-57px)] max-w-2xl flex-col items-center justify-center px-6 py-16">
-
+<div
+  style={{
+    maxWidth: 720,
+    margin: '0 auto',
+    minHeight: 'calc(100vh - 57px)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: `${isMobile ? '48px' : '64px'} ${px}`,
+  }}
+>
         {/* Star badge */}
         <motion.div {...fadeUp(0.05)}>
           <div
-            className="mb-8 flex h-20 w-20 items-center justify-center rounded-full"
-            style={{ background: 'rgba(201,135,58,0.12)', border: `2px solid rgba(201,135,58,0.3)` }}
+<div
+  style={{
+    width: isMobile ? 64 : 80,
+    height: isMobile ? 64 : 80,
+    marginBottom: 32,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '50%',
+    background: 'rgba(201,135,58,0.12)',
+    border: '2px solid rgba(201,135,58,0.3)',
+  }}
+>            style={{ background: 'rgba(201,135,58,0.12)', border: `2px solid rgba(201,135,58,0.3)` }}
           >
-            <Star size={36} fill={gold} style={{ color: gold }} />
-          </div>
+<Star size={isMobile ? 28 : 36} fill={gold} style={{ color: gold }} />          </div>
         </motion.div>
 
         {/* Headline */}
@@ -78,7 +112,7 @@ export default function ThankYou() {
           style={{
             fontFamily: '"Playfair Display", serif',
             fontWeight: 900,
-            fontSize: 42,
+            fontSize: isMobile ? 32 : 42,
             color: navy,
             textAlign: 'center',
             lineHeight: 1.1,
@@ -90,7 +124,7 @@ export default function ThankYou() {
         <motion.p
           {...fadeUp(0.2)}
           className="mt-4 text-center text-base leading-relaxed"
-          style={{ color: '#64748b', maxWidth: 420 }}
+          style={{ color: '#64748b', maxWidth: 420, textAlign: 'center' , fotnSize: isMobile ? 14 : 16}}
         >
           Your property submission is in. We'll manually review your county
           data and comparable homes, then deliver your complete protest packet
@@ -100,8 +134,14 @@ export default function ThankYou() {
         {/* Timeline */}
         <motion.div
           {...fadeUp(0.3)}
-          className="mt-10 w-full rounded-2xl bg-white p-8"
-          style={{ border: '1px solid #e8e2d9' }}
+style={{
+  width: '100%',
+  marginTop: 40,
+  background: '#fff',
+  border: '1px solid #e8e2d9',
+  borderRadius: 16,
+  padding: isMobile ? 20 : 32,
+}}          style={{ border: '1px solid #e8e2d9' }}
         >
           <p
             className="mb-6 text-xs font-bold uppercase tracking-widest"
@@ -112,8 +152,14 @@ export default function ThankYou() {
 
           <div className="space-y-0">
             {steps.map(({ icon: Icon, title, desc, done }, i) => (
-              <div key={title} className="flex gap-4">
-                {/* Left: icon + connector */}
+<div
+  key={title}
+  style={{
+    display: 'flex',
+    gap: 16,
+    alignItems: 'flex-start',
+  }}
+>                {/* Left: icon + connector */}
                 <div className="flex flex-col items-center">
                   <div
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full"
@@ -163,8 +209,17 @@ export default function ThankYou() {
 
           {/* Turnaround callout */}
           <div
-            className="mt-2 flex items-center gap-3 rounded-xl px-4 py-3"
-            style={{ background: 'rgba(201,135,58,0.06)', border: '1px solid rgba(201,135,58,0.2)' }}
+style={{
+  marginTop: 16,
+  display: 'flex',
+  flexDirection: isMobile ? 'column' : 'row',
+  alignItems: isMobile ? 'flex-start' : 'center',
+  gap: 12,
+  borderRadius: 12,
+  padding: 16,
+  background: 'rgba(201,135,58,0.06)',
+  border: '1px solid rgba(201,135,58,0.2)',
+}}    
           >
             <Clock size={16} style={{ color: gold, flexShrink: 0 }} />
             <p className="text-sm" style={{ color: '#92400e' }}>
@@ -177,10 +232,20 @@ export default function ThankYou() {
         {/* Protest deadline reminder */}
         <motion.div
           {...fadeUp(0.4)}
-          className="mt-5 w-full rounded-xl px-5 py-4 flex items-start gap-3"
-          style={{ background: '#fff', border: '1px solid #e8e2d9' }}
-        >
-          <span style={{ fontSize: 18, lineHeight: '24px' }}>⚠️</span>
+style={{
+  marginTop: 20,
+  width: '100%',
+  display: 'flex',
+  flexDirection: isMobile ? 'column' : 'row',
+  alignItems: isMobile ? 'center' : 'flex-start',
+  textAlign: isMobile ? 'center' : 'left',
+  gap: 12,
+  padding: 20,
+  borderRadius: 12,
+  background: '#fff',
+  border: '1px solid #e8e2d9',
+}}    
+      <span style={{ fontSize: 18, lineHeight: '24px' }}>⚠️</span>
           <p className="text-sm" style={{ color: '#475569' }}>
             <span className="font-semibold" style={{ color: navy }}>
               Protest deadline: May 15, 2026.

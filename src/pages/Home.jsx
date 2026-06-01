@@ -99,7 +99,8 @@ export default function Home() {
 
       {/* TESTIMONIAL */}
       <div style={{ background: C.tan, padding: `${isMobile ? '36px' : '48px'} ${px}`, borderBottom: '1px solid rgba(60,30,8,0.15)' }}>
-        <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', gap: isMobile ? 16 : 32, alignItems: 'center' }}>
+        <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex',  flexDirection: isMobile ? 'column' : 'row',
+    textAlign: isMobile ? 'center' : 'left', gap: isMobile ? 16 : 32, alignItems: 'center' }}>
           <div style={{ fontSize: isMobile ? 36 : 80, color: C.rust, opacity: 0.5, lineHeight: 1, flexShrink: 0 }}>★</div>
           <div>
             <p style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: isMobile ? 15 : 18, fontStyle: 'italic', color: C.brown, lineHeight: 1.7, margin: '0 0 12px' }}>

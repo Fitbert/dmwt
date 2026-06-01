@@ -7,8 +7,38 @@ const C = { cream: '#f5f0e8', tan: '#e8dcc8', rust: '#8b3a1a', brown: '#3d2008',
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001'
 
-const TX_COUNTIES = ['Travis','Harris','Dallas','Bexar','Tarrant','Collin','Denton','Fort Bend','Montgomery','Williamson','El Paso','Hidalgo','Galveston','Nueces','Bell','Jefferson','Brazoria','McLennan','Webb','Hays','Smith','Lubbock','Cameron','Parker','Comal','Brazos','Midland','Ector','Randall','Tom Green']
-
+const TX_COUNTIES = [
+  'Bell',
+  'Bexar',
+  'Brazoria',
+  'Brazos',
+  'Cameron',
+  'Collin',
+  'Comal',
+  'Dallas',
+  'Denton',
+  'Ector',
+  'El Paso',
+  'Fort Bend',
+  'Galveston',
+  'Harris',
+  'Hays',
+  'Hidalgo',
+  'Jefferson',
+  'Lubbock',
+  'McLennan',
+  'Midland',
+  'Montgomery',
+  'Nueces',
+  'Parker',
+  'Randall',
+  'Smith',
+  'Tarrant',
+  'Tom Green',
+  'Travis',
+  'Webb',
+  'Williamson'
+]
 const STEPS = [
   { id: 'property',  label: 'Property',  icon: '⌂' },
   { id: 'details',   label: 'Details',   icon: '≡' },
@@ -99,8 +129,15 @@ const handleSubmit = async () => {
       <div style={{ maxWidth: 680, margin: '0 auto', padding: `48px ${px} 80px`, position: 'relative', zIndex: 1 }}>
 
         {/* Stepper */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 0, marginBottom: 36 }}>
-          {STEPS.map(({ label, icon }, i) => {
+<div
+  style={{
+    display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row',
+    alignItems: isMobile ? 'flex-start' : 'center',
+    gap: isMobile ? 12 : 0,
+    marginBottom: 36,
+  }}
+>          {STEPS.map(({ label, icon }, i) => {
             const done   = i < step
             const active = i === step
             return (
@@ -225,7 +262,9 @@ const handleSubmit = async () => {
 
               <div style={{ marginBottom: 22 }}>
                 <label style={labelStyle}>Overall condition</label>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 8 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile
+  ? 'repeat(2,1fr)'
+  : 'repeat(4,1fr)', gap: 8 }}>
                   {['Poor','Fair','Average','Good'].map(g => (
                     <button key={g} onClick={() => set('conditionGrade', g)}
                       style={{ fontFamily: "'Special Elite', monospace", fontSize: 12, letterSpacing: '0.06em', border: `2px solid ${form.conditionGrade === g ? C.rust : 'rgba(60,30,8,0.2)'}`, color: form.conditionGrade === g ? C.cream : C.faded, padding: '10px 4px', background: form.conditionGrade === g ? C.rust : 'transparent', cursor: 'pointer', transition: 'all 0.15s', textAlign: 'center' }}>
