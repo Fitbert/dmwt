@@ -48,7 +48,7 @@ export default function Footer() {
           <div>
             <div style={{ border: '1.5px solid rgba(139,58,26,0.4)', padding: '20px', background: 'rgba(139,58,26,0.08)' }}>
               <p style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: C.rust, margin: '0 0 6px' }}>⚠ Protest deadline</p>
-              <p style={{ fontFamily: "'Caveat', cursive", fontSize: 30, fontWeight: 700, color: C.tan, lineHeight: 1, margin: '0 0 6px' }}>May 15, 2026</p>
+              <p style={{ fontFamily: "'Caveat', cursive", fontSize: 30, fontWeight: 700, color: C.tan, lineHeight: 1, margin: '0 0 6px' }}>May 15, 2027</p>
               <p style={{ fontSize: 11, color: 'rgba(232,220,200,0.4)', lineHeight: 1.6, margin: '0 0 14px' }}>Or 30 days from your appraisal notice — whichever is later.</p>
               <Link to="/intake" style={{ fontFamily: "'Special Elite', monospace", fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', background: C.rust, color: C.cream, padding: '8px 16px', textDecoration: 'none', display: 'inline-block' }}>
                 Start now →

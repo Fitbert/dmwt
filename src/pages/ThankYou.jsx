@@ -247,7 +247,7 @@ style={{
       <span style={{ fontSize: 18, lineHeight: '24px' }}>⚠️</span>
           <p className="text-sm" style={{ color: '#475569' }}>
             <span className="font-semibold" style={{ color: navy }}>
-              Protest deadline: May 15, 2026.
+              Protest deadline: May 15, 2027.
             </span>{' '}
             You have plenty of time — we'll make sure your packet is ready well
             before the wire.

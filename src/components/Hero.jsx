@@ -42,7 +42,7 @@ export default function Hero() {
             </motion.div>
  
             <motion.h1 {...fadeUp(0.15)} style={{ fontFamily: "'Caveat', cursive", fontSize: headlineSize, fontWeight: 700, lineHeight: 0.92, color: C.brown, margin: '0 0 10px', letterSpacing: '-1.5px' }}>
-              Your county's<br />been <span style={{ color: C.rust }}>overcharging</span><br />you long enough.
+              Your county has<br />been <span style={{ color: C.rust }}>overcharging</span><br />you long enough.
             </motion.h1>
  
             <motion.p {...fadeUp(0.25)} style={{ fontFamily: "'Libre Baskerville', Georgia, serif", fontSize: isMobile ? 14 : 16, fontStyle: 'italic', color: C.faded, margin: '18px 0 24px', lineHeight: 1.7, maxWidth: 440 }}>
