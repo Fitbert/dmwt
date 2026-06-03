@@ -11,7 +11,7 @@ const C = { cream: '#f5f0e8', tan: '#e8dcc8', rust: '#8b3a1a', brown: '#3d2008',
 const STEPS = [
   { num: '01', title: 'Enter your property', body: 'Type your address or upload your appraisal notice. We pull county records automatically — no digging required.', note: 'All 254 Texas counties' },
   { num: '02', title: 'We build the case',   body: 'Comparable sales, equity analysis, condition notes — assembled into a clean, ARB-ready packet built for your county.', note: 'Both arguments included' },
-  { num: '03', title: 'You file, you fight', body: "Download your complete PDF protest packet, formatted for your county's ARB. Hearing prep with talking points available too.", note: 'Ready in under 8 minutes' },
+  { num: '03', title: 'You file, you fight', body: "Download your complete PDF protest packet, formatted for your county's ARB. Hearing prep with talking points available too.", note: 'Ready in under 24 - 48 hours' },
 ]
 
 const TIERS = [
