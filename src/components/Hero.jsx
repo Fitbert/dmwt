@@ -64,7 +64,7 @@ export default function Hero() {
  
             {/* Trust stats */}
             <motion.div {...fadeUp(0.5)} style={{ display: 'flex', flexWrap: 'wrap', gap: isMobile ? 20 : 36, marginTop: 36, paddingTop: 28, borderTop: '1px dashed rgba(60,30,8,0.2)' }}>
-              {[{ val: '$1,240', label: 'Avg. savings / year' }, { val: '73%', label: 'Win a reduction' }, { val: '824 - 48 hours', label: 'To get your packet' }].map(({ val, label }) => (
+              {[{ val: '$1,240', label: 'Avg. savings / year' }, { val: '73%', label: 'Win a reduction' }, { val: '24 - 48 hours', label: 'To get your packet' }].map(({ val, label }) => (
                 <div key={label}>
                   <div style={{ fontFamily: "'Caveat', cursive", fontSize: isMobile ? 28 : 36, fontWeight: 700, color: C.rust, lineHeight: 1 }}>{val}</div>
                   <div style={{ fontFamily: "'Special Elite', monospace", fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.faded, marginTop: 3 }}>{label}</div>
