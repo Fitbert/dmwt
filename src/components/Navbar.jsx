@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useBreakpoint } from '../hooks/useBreakpoint'
+
+
 
 const C = { cream: '#f5f0e8', tan: '#e8dcc8', rust: '#8b3a1a', brown: '#3d2008', faded: '#7a6548' }
 
@@ -8,6 +10,9 @@ export default function Navbar() {
   const [scrolled, setScrolled]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
   const { isMobile, isTablet }    = useBreakpoint()
+  
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -17,6 +22,23 @@ export default function Navbar() {
 
   // Close menu on route change / resize to desktop
   useEffect(() => { if (!isMobile && !isTablet) setMenuOpen(false) }, [isMobile, isTablet])
+
+  const scrollToSection = (id) => {
+    setMenuOpen(false)
+ if (location.pathname !== '/') {
+    navigate('/', { state: { scrollTo: id } })
+    return
+  }
+
+  const el = document.getElementById(id)
+
+  if (el) {
+    el.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+}
 
   return (
     <>
@@ -71,11 +93,30 @@ export default function Navbar() {
           {/* Desktop links */}
           {!isMobile && !isTablet && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
-              {[['#how', 'How It Works'], ['#pricing', 'Pricing']].map(([href, label]) => (
-                <a key={href} href={href} className="nav-link" style={{ fontFamily: "'Special Elite', monospace", fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.faded, textDecoration: 'none', transition: 'color 0.15s' }}>
-                  {label}
-                </a>
-              ))}
+{[
+  ['how', 'How It Works'],
+  ['pricing', 'Pricing'],
+].map(([id, label]) => (
+  <button
+    key={id}
+    onClick={() => scrollToSection(id)}
+    className="nav-link"
+    style={{
+      fontFamily: "'Special Elite', monospace",
+      fontSize: 12,
+      letterSpacing: '0.12em',
+      textTransform: 'uppercase',
+      color: C.faded,
+      background: 'transparent',
+      border: 'none',
+      cursor: 'pointer',
+      padding: 0,
+    }}
+  >
+    {label}
+  </button>
+))}
+
               <Link to="/intake" className="nav-cta" style={{ fontFamily: "'Special Elite', monospace", fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', border: `2px solid ${C.rust}`, color: C.rust, padding: '8px 20px', textDecoration: 'none', background: 'transparent', transition: 'all 0.15s', display: 'inline-block' }}>
                 Start Free →
               </Link>
@@ -106,7 +147,7 @@ export default function Navbar() {
         {(isMobile || isTablet) && (
           <div className={`mobile-menu ${menuOpen ? 'open' : 'closed'}`} style={{ borderTop: `1px dashed rgba(60,30,8,0.2)`, background: C.cream }}>
             <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: 0 }}>
-              {[['#how', 'How It Works'], ['#pricing', 'Pricing']].map(([href, label]) => (
+              {[['#how', 'How It Works'], ['#pricing', 'pricing']].map(([href, label]) => (
                 <a key={href} href={href} onClick={() => setMenuOpen(false)} style={{ fontFamily: "'Special Elite', monospace", fontSize: 13, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.faded, textDecoration: 'none', padding: '14px 0', borderBottom: `1px dashed rgba(60,30,8,0.15)`, display: 'block' }}>
                   {label}
                 </a>

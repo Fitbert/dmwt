@@ -52,21 +52,72 @@ export default function Intake() {
 
   const [step,    setStep]    = useState(0)
   const [loading, setLoading] = useState(false)
-  const [form,    setForm]    = useState({
-    address: '', county: '', appraisedValue: '',
-    sqft: '', beds: '', baths: '', yearBuilt: '', lotSize: '', garage: '',
-    extras: [], conditionGrade: '', issues: [], condition: '',
-    uploadedNotice: null,
-  })
+const [form, setForm] = useState({
+  // Contact
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
 
+  // Property
+  address: '',
+  county: '',
+  appraisedValue: '',
+
+  // Details
+  sqft: '',
+  beds: '',
+  baths: '',
+  yearBuilt: '',
+  lotSize: '',
+  garage: '',
+
+  extras: [],
+
+  // Condition
+  conditionGrade: '',
+  issues: [],
+  condition: '',
+
+  uploadedNotice: null,
+})
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
   const canNext = () => {
-    if (step === 0) return form.address && form.county && form.appraisedValue
+    if (step === 0) return form.firstName && form.lastName && form.email && form.phone && form.address && form.county && form.appraisedValue
     if (step === 1) return form.sqft && form.beds && form.baths && form.yearBuilt
     return true
   }
+const getRecommendation = () => {
+  const value = Number(form.appraisedValue || 0)
 
+  console.log('DEBUG', {
+    appraisedValue: form.appraisedValue,
+    value,
+    conditionGrade: form.conditionGrade,
+    issues: form.issues,
+  })
+
+  if (
+    value >= 700000 ||
+    (form.issues || []).length >= 4
+  ) {
+    return 'Premium Review'
+  }
+
+  if (
+    form.conditionGrade === 'Poor' ||
+    (form.issues || []).length >= 3
+  ) {
+    return 'Evidence Packet + Condition Analysis'
+  }
+
+  if (value >= 250000) {
+    return 'Evidence Packet'
+  }
+
+  return 'DIY Packet'
+}
 
 const handleSubmit = async () => {
   setLoading(true)
@@ -76,9 +127,16 @@ const handleSubmit = async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        lead:{
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          phone: form.phone,
+        },
         property: form,
-        comps: [],
-        tier: 'evidence',
+        recommendation: getRecommendation(),
+
+        comps:[],
       }),
     })
 
@@ -190,6 +248,62 @@ const handleSubmit = async () => {
                 <input type="file" accept=".pdf,image/*" style={{ display: 'none' }} onChange={e => set('uploadedNotice', e.target.files[0])} />
               </label>
 
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 18, marginBottom: 18,}}>
+              <div>
+    <label style={labelStyle}>First Name *</label>
+    <input
+      type="text"
+      placeholder="John"
+      value={form.firstName}
+      onChange={e => set('firstName', e.target.value)}
+      style={inputStyle(form.firstName)}
+    />
+  </div>
+  <div>
+    <label style={labelStyle}>Last Name *</label>
+    <input
+      type="text"
+      placeholder="Doe"
+      value={form.lastName}
+      onChange={e => set('lastName', e.target.value)}
+      style={inputStyle(form.lastName)}
+    />
+  </div>
+  </div>
+
+  <div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+    gap: 18,
+    marginBottom: 24,
+  }}
+>
+<div>
+    <label style={labelStyle}>Email *</label>
+    <input
+      type="email"
+      placeholder="johndoe@email.com"
+      value={form.email}
+      onChange={e => set('email', e.target.value)}
+      style={inputStyle(form.email)}
+    />
+  </div>
+
+  <div>
+    <label style={labelStyle}>Phone *</label>
+    <input
+      type="tel" 
+      placeholder="(512) 555-1234"
+      value={form.phone} 
+      onChange={e => set('phone', e.target.value)}
+      style={inputStyle(form.phone)}
+    />
+  </div>
+</div>
+        
+                      
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
                 <div>
                   <label style={labelStyle}>Property address *</label>
@@ -292,6 +406,37 @@ const handleSubmit = async () => {
                   style={{ ...inputStyle(form.condition), resize: 'vertical', lineHeight: 1.7 }}
                   onFocus={e => e.target.style.borderColor = C.rust} onBlur={e => e.target.style.borderColor = 'rgba(60,30,8,0.2)'} />
               </div>
+
+              <div
+  style={{
+    background: '#fff',
+    border: '1px solid rgba(60,30,8,.15)',
+    padding: 16,
+    marginBottom: 22,
+  }}
+>
+  <p
+    style={{
+      fontSize: 10,
+      letterSpacing: '.18em',
+      textTransform: 'uppercase',
+      color: C.rust,
+      marginBottom: 8,
+    }}
+  >
+    Recommended Service
+  </p>
+
+  <div
+    style={{
+      fontSize: 18,
+      color: C.brown,
+      fontWeight: 700,
+    }}
+  >
+    {getRecommendation()}
+  </div>
+</div>
 
               {/* Packet preview */}
               <div style={{ background: 'rgba(139,58,26,0.05)', border: '1px dashed rgba(139,58,26,0.25)', padding: '16px' }}>
